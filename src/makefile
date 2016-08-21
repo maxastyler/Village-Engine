@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-c -Wall
 LDFLAGS= 
 SDLFLAGS=-lSDL2 -lSDL2_gfx
-SOURCES=main.cpp Vec.cpp Mat.cpp Transform.cpp LTimer.cpp EventManager.cpp Event.cpp
+SOURCES=main.cpp Vec.cpp Mat.cpp Transform.cpp LTimer.cpp EventManager.cpp Event.cpp GameManager.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=VillageEngine
 

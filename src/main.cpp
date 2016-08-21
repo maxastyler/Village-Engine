@@ -2,6 +2,7 @@
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <iostream>
 #include "LTimer.hpp"
+#include "GameManager.hpp"
 
 int WINDOW_WIDTH=640;
 int WINDOW_HEIGHT=480;
@@ -32,7 +33,7 @@ int main(int argc, char* argv[]) {
 
 void init() {
     SDL_Init(SDL_INIT_VIDEO);
-    window=SDL_CreateWindow("ViewSystem", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    window=SDL_CreateWindow("VillageEngine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
     renderer=SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 };
 
@@ -44,19 +45,15 @@ void quit() {
 
 void main_loop() {
     
-    SDL_Event e;
+    GameManager game_manager(renderer);
     bool running=true;
-
-    SDL_Texture* bitmapTex=SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("../Resources/spritetest.png"));
 
     while (running) {
 
         capTimer.start();
 
-        while (SDL_PollEvent(&e)!=0) {
-            if (e.type==SDL_QUIT) 
-                running=false;
-        };
+        game_manager.update(FRAME_TIME, &running);
+        game_manager.render();
 
         int frame_ticks=capTimer.get_ticks();
         if (frame_ticks<FRAME_TIME) {

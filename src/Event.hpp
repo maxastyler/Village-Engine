@@ -1,6 +1,7 @@
 #ifndef _EVENT_HPP
 #define _EVENT_HPP
 
+//When adding a new event class, add name to the enum
 enum EventType{
     TEST_EVENT,
 };
