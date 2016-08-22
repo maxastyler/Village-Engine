@@ -1,5 +1,6 @@
 #include "EventManager.hpp"
 #include <functional>
+#include <iostream>
 #include "Event.hpp"
 
 EventManager::EventManager(GameManager* _game_manager){
@@ -16,19 +17,19 @@ EventManager::~EventManager() {
 void EventManager::update() {
     while(!events.empty()) {
         Event* current=(events.front());
-        for (auto& ent: listeners[current->id]) {
-            ent.second(current);  
+        for (auto ent: listeners[current->id]) {
+            (*ent.second)(current);  
         };
         delete events.front();
         events.pop();
     };
 };
 
-void EventManager::add_listener(EventType e, unsigned int id, std::function<void(Event*)> func) {
+void EventManager::add_listener(EventType e, unsigned int id, std::function<void(Event*)>* func) {
     listeners[e][id]=func; 
 };
 
-void EventManager::add_listener_all(unsigned int id, std::function<void(Event*)> func){
+void EventManager::add_listener_all(unsigned int id, std::function<void(Event*)>* func){
     for(int i=FIRST; i!=LAST; i++){
         listeners[EventType(i)][id]=func;
     };
@@ -44,8 +45,9 @@ void EventManager::remove_listener(EventType e, unsigned int id) {
 };
 
 void EventManager::remove_listener(unsigned int id) {
-    for (auto& element: listeners) {
-        element.second.erase(id);
+    for (auto element: listeners) {
+        delete element.second[id];
+        //element.second.erase(id);
     };
 };
 

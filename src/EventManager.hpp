@@ -16,8 +16,8 @@ class EventManager {
         ~EventManager();
         void update();
         void add_event(Event*);
-        void add_listener(EventType, unsigned int, std::function<void(Event*)>);
-        void add_listener_all(unsigned int, std::function<void(Event*)>);
+        void add_listener(EventType, unsigned int, std::function<void(Event*)>*);
+        void add_listener_all(unsigned int, std::function<void(Event*)>*);
 
         //Removes the listener from that event type by global id
         void remove_listener(EventType, unsigned int);
@@ -30,7 +30,7 @@ class EventManager {
         void remove_all_listeners(EventType);
     private:
         std::map<
-            EventType, std::map<unsigned int, std::function<void(Event*)>>
+            EventType, std::map<unsigned int, std::function<void(Event*)>*>
                 > listeners; 
         std::queue<Event*> events;
         GameManager* game_manager;

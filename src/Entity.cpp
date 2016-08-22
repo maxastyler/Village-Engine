@@ -13,6 +13,7 @@ Entity::Entity(GameManager* game_manager){
 };
 
 Entity::~Entity() {
+    event_manager->remove_listener(id);
     delete_children();
 };
 

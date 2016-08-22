@@ -1,6 +1,7 @@
 #include "GameManager.hpp"
 #include "EntityManager.hpp"
 #include "Entity.hpp"
+#include "Console.hpp"
 #include <iostream>
 
 class EntityManager;
@@ -9,6 +10,13 @@ GameManager::GameManager(SDL_Renderer* _renderer){
     renderer=_renderer; 
     entity_manager=new EntityManager(this);
     event_manager=new EventManager(this);
+    entity_manager->add_entity(new Console(this)); 
+    event_manager->add_event(new TestEvent);
+    event_manager->update();
+    //entity_manager->remove_entity(1);
+    //event_manager->add_event(new TestEvent);
+   // event_manager->update();
+
 };
 
 GameManager::~GameManager() {
