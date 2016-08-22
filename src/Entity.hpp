@@ -1,31 +1,45 @@
 #ifndef _ENTITY_HPP
 #define _ENTITY_HPP
 
-#include "GameManager.hpp"
 #include "Transform.hpp"
 #include "EntityManager.hpp"
-#include <map>
+#include "EventManager.hpp"
+#include "GameManager.hpp"
+#include <vector>
 
 class EntityManager;
+class EventManager;
+class GameManager;
+
+enum EntityType {
+    TEST_ENTITY,
+};
 
 class Entity {
     public:
-        Entity(EntityManager*);
+        Entity(GameManager*);
         ~Entity();
         unsigned int get_id(){return id;};
-        void add_parent(Entity* other);
-        void add_child(Entity* other);
-        void remove_child(unsigned int id);
-        void remove_child(Entity* other);
+        unsigned int get_parent(){return parent;};
+        std::vector<unsigned int> get_children(){return children;};
+
+        void add_child(unsigned int other);
+        void add_child_only(unsigned int other);
+        void add_parent(unsigned int other);
+        void add_parent_only(unsigned int other);
+        void remove_child(unsigned int other);
+        void remove_child_only(unsigned int other);
         void remove_children();
         void remove_parent();
+        void remove_parent_only();
+        void delete_children();
 
     protected: 
-        Transform transform;
         unsigned int id;
-        Entity* parent;
+        unsigned int parent;
         EntityManager* entity_manager;
-        std::map<unsigned int, Entity*> children;
+        EventManager* event_manager;
+        std::vector<unsigned int> children;
 };
 
 #endif

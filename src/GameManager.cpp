@@ -1,14 +1,14 @@
 #include "GameManager.hpp"
 #include "EntityManager.hpp"
 #include "Entity.hpp"
+#include <iostream>
+
+class EntityManager;
 
 GameManager::GameManager(SDL_Renderer* _renderer){
     renderer=_renderer; 
-    entity_manager=new EntityManager;
-    event_manager=new EventManager;
-    event_manager->add_event(new Event);
-    entity_manager->add_entity(new Entity(entity_manager));
-
+    entity_manager=new EntityManager(this);
+    event_manager=new EventManager(this);
 };
 
 GameManager::~GameManager() {

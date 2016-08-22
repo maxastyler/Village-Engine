@@ -3,7 +3,9 @@
 
 //When adding a new event class, add name to the enum
 enum EventType{
+    FIRST,
     TEST_EVENT,
+    LAST,
 };
 
 class Event {

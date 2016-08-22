@@ -15,6 +15,8 @@ class GameManager {
         ~GameManager();
         void update(int, bool*);
         void render();
+        EventManager* get_event_manager(){return event_manager;};
+        EntityManager* get_entity_manager(){return entity_manager;};
 
     private:
         EventManager* event_manager;
